@@ -50,6 +50,61 @@ This is documentation of **your** code, not a substitute for implementation.
 
 ---
 
+## Role-specific evaluation & test mapping
+
+Below is a concise analysis of each hiring role and how to evaluate candidates using this repository. For each role I list the most relevant parts of the codebase, the test suites that exercise those areas, suggested additional small tasks to include in interviews/homework, and concrete acceptance criteria you can use when grading submissions.
+
+Lead Blockchain Engineer (Remote)
+- Focus areas: `src/core/*`, `src/crypto/*`, `src/network/P2PServer.js`, `src/storage/persistence.js`
+- Tests that matter: `tests/unit/core/*`, `tests/unit/crypto/*`, `tests/integration/*` (blockchainFlow, chainReorg, genesis, multiWallet, serialization)
+- Suggested evaluation tasks: design a short architecture doc (consensus, difficulty retargeting), fix or add a deterministic performance benchmark for mining, review and harden validation logic (edge cases).
+- Acceptance: passes core + integration suites; clear architecture notes; at least one safe improvement suggested and demonstrated in code or tests.
+
+Senior Smart Contract Engineer (Remote)
+- Focus areas: cryptography, transaction model, signature and verification (`src/crypto`, `src/core/Transaction.js`, `src/core/UTXOSet.js`, `src/core/Wallet.js`).
+- Tests that matter: `tests/unit/crypto/*`, `tests/unit/core/Transaction*.js`, `tests/unit/core/UTXOSet.test.js`, `tests/unit/core/Wallet.test.js`.
+- Suggested evaluation tasks: specify how same transaction semantics would map to on-chain contracts; propose attack scenarios and mitigations (reentrancy-like analogues, double-spend).
+- Acceptance: passes crypto+transaction related unit tests and provides a short technical note mapping off-chain transaction/UTXO design to a hypothetical Solidity contract design.
+
+Senior Web3 Full Stack Engineer (Remote)
+- Focus areas: API integration, wallet flow, UX-friendly endpoints (`src/api/server.js`), P2P integration for real-time updates.
+- Tests that matter: `tests/api/*`, `tests/network/p2p.test.js`, relevant integration tests.
+- Suggested evaluation tasks: implement a small client script (curl or Node) that uses the API to create a wallet, submit a transaction, and mine a block; optionally add a tiny React/Next demo.
+- Acceptance: API tests pass and a short end-to-end demo script demonstrates the full flow: wallet -> transaction -> mine -> balance.
+
+Senior Backend Engineer (Remote)
+- Focus areas: persistence, indexing, event-driven processing (`src/storage/persistence.js`, chain serialization), scalable architecture notes.
+- Tests that matter: `tests/storage/persistence.test.js`, integration tests, and `tests/api/*` for endpoints that rely on persistence.
+- Suggested evaluation tasks: add a basic indexer script that builds address-to-UTXO lookup and provide a small benchmark for load/save operations.
+- Acceptance: persistence tests pass, indexer proof-of-concept included, and brief notes on scalability and trade-offs.
+
+Senior Frontend Engineer (Remote)
+- Focus areas: API ergonomics and UX (though this repo is backend-focused). Evaluate how well the API supports frontend flows and error handling.
+- Tests that matter: `tests/api/*` (endpoint correctness), integration tests that exercise API workflows.
+- Suggested evaluation tasks: create a small example (static page or script) showing wallet creation and transaction flow and document developer-friendly improvements to API payloads/responses.
+- Acceptance: API tests pass and a short frontend demo or curl script demonstrates the expected UX flow.
+
+Senior DevOps Engineer (Remote)
+- Focus areas: reproducible builds, CI, containerization, observability and deployment. This repo currently contains the app and tests but no CI or Dockerfiles.
+- Tests that matter: entire test suite (CI should run `npm install && npm test`) and any start scripts (`npm start`).
+- Suggested evaluation tasks: provide a simple `Dockerfile`, a `docker-compose.yml` for local dev (API + P2P), and a minimal GitHub Actions workflow that runs tests and lints on PRs.
+- Acceptance: tests run successfully inside the provided Dockerfile / CI job; candidate documents runbook for deployment and node operation.
+
+How to use the test mapping during hiring
+- Baseline: run the full test suite locally with `npm install && npm test`. Tests are the authoritative spec for this assignment.
+- Role-specific grading: run only the relevant tests listed above for faster iteration (e.g. `npm test -- tests/unit/crypto`), then review the suggested additional tasks and supporting docs/demos.
+- Timebox: for take-home assignments, ask candidates to complete core tests + one role-specific task within 48–72 hours. For on-site exercises, use a focused subset of tests and a 2–4 hour coding task.
+
+Scoring rubric (suggested)
+- Correctness (60%): how many relevant tests pass, correctness of edge-case handling.
+- Code quality (20%): readability, structure, comments, and sensible abstractions.
+- Design and reasoning (15%): architecture notes, security considerations, trade-offs.
+- Delivery (5%): submission completeness, documentation, small demos or scripts.
+
+Add this to your submission
+- Candidates should add a short `ARCHITECTURE.md` or a top-of-readme section describing key design choices relevant to their role (2–4 paragraphs), and include any extra scripts or docs in a `candidate/` folder.
+
+
 ## To-do list (check off as you complete)
 
 ### 1. Project setup
