@@ -195,6 +195,10 @@ curl -X POST http://localhost:3001/mine
 curl http://localhost:3001/blocks
 ```
 
+Note about `npm start` vs `npm run dev` (candidate mode)
+- `npm start` now runs a lightweight demo stub server (safe for quick demos and candidates). It exposes the API endpoints used by `candidate/demo-client-template.js` and does not require implementing the full blockchain engine.
+- `npm run dev` launches the real node (`src/index.js`) and requires the full backend implementation (crypto, core, UTXO, mempool, P2P). Use `npm run dev` only if you are completing the full-backend assignment.
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PORT` | 3001 | HTTP API |

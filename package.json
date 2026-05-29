@@ -4,8 +4,9 @@
   "description": "Advanced Node.js blockchain coding assessment — implement src/ until tests pass",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "node": "node src/index.js",
+  "start": "node candidate/stub/server.js",
+  "dev": "node src/index.js",
+  "node": "node src/index.js",
     "test": "jest",
     "start:stub": "node candidate/stub/server.js",
     "demo": "node candidate/demo-client-template.js",

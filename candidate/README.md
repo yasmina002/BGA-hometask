@@ -17,6 +17,18 @@ B) Full backend implementation (optional, larger scope)
 - Implement missing core files in `src/` (crypto, core, chain, mempool, persistence, P2P).
 - Deliverables: all updated `src/` files, tests still pass, and `candidate/ARCHITECTURE.md` describing key design choices.
 
+Required backend tasks (if you choose full implementation)
+- Implement the following files so the full test-suite passes and `npm run dev` starts a working node:
+  - `src/crypto/hash.js` — SHA-256 hashing utilities
+  - `src/crypto/keyPair.js` — key generation, sign, verify (secp256k1)
+  - `src/core/Transaction.js` — create, sign, verify, coinbase transactions
+  - `src/core/UTXOSet.js` — track UTXOs, apply transactions/blocks
+  - `src/core/Wallet.js` — createTransaction, getPublicKey
+  - `src/core/Block.js`, `src/core/Blockchain.js`, `src/core/Mempool.js` — blockchain logic
+  - `src/network/P2PServer.js` — P2P sync and broadcast
+
+These are the minimal components required for the integration and network tests. Implementing them is a larger scope than the demo client and may take several days depending on familiarity with blockchain internals.
+
 Running locally (demo mode)
 1. Start the lightweight stub server that implements the API endpoints used in the demo (this is **not** the full blockchain engine — it is a local shim to exercise API flows):
 
